@@ -1,0 +1,45 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="styles/mealtypestyle.css">
+</head>
+<body background="assets/backgroundimage.jpg">
+<img src="assets/logowhite.png"/>
+<a href="menuoptions.html">Salads</a>
+<a href="menuoptions.html">Entrees</a>
+<a href="menuoptions.html">Desserts</a>
+        
+<script type="text/javascript" src="cordova.js"></script>
+<script>
+var linx = document.getElementsByTagName("a");
+for (var i=0;i<linx.length;i++){
+   linx[i].addEventListener("click",function(){
+     var wantedtype=this.innerText.slice(0, -1).toLowerCase();
+     localStorage.setItem("wantedtype",wantedtype);
+   })
+  
+  
+}
+        if (localStorage.getItem("uniqueid")==False){
+                localStorage.setItem("uniqueid","0");
+        }
+document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+        function onDeviceReady() {                               
+            cordova.plugins.notification.local.schedule({
+                id: 1,
+                title: "Cooking time!",
+                text: "Buy ingredients!",                    
+                every: "minute"//,                                        
+                //data: { meal: "Shopska salad" }
+            });
+        
+        cordova.plugins.notification.local.on("click", function (notification) {
+        if (notification.id == 1) {
+           localStorage.setItem("viewIngredients1",JSON.stringify(["Cucumbers","Tomatoes","White cheese"]));
+            window.open("viewIngredientsBasic.html");
+        }
+    });
+        };
+        
+</script>        
+</body>
+</html>
